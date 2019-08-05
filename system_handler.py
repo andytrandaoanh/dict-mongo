@@ -1,4 +1,5 @@
 import os, sys
+from datetime import datetime
 
 def openDir(targetdir):
 	#open directory when done	
@@ -35,3 +36,20 @@ def getMatchTuple(inPath):
 			#print(match[0], match[1])
 			matchList.append((match[0], match[1]))
 	return matchList
+
+
+def getDatedFilePath(initialString, dirOut):
+	now = datetime.now()
+	dateTime = now.strftime("%Y%m%d_%H%M")
+	fileName = initialString + '_' + dateTime + ".txt"
+	pathOut =  os.path.join(dirOut, fileName ) 
+	return(pathOut)
+
+def getDateStamp():
+	getDateStamp = str(datetime.now())
+	return(getDateStamp)
+
+def writeListToFile(vlist, vpath):
+    with open(vpath, 'w', encoding ='utf-8') as file:
+        for item in vlist:    
+            file.write(item + "\n")

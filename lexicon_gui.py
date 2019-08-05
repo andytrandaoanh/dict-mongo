@@ -55,11 +55,11 @@ class LexGUI:
             cf.set_config_value(cf.RECENT_OPEN_FILE,self.filename)
 
     def dirDialog(self):
-        self.filename2 = filedialog.askdirectory()
-        if (self.filename2):
-            self.filepath2.set(self.filename2) #set the textbox to the file path        
+        self.filename = filedialog.askdirectory()
+        if (self.filename):
+            self.filepath.set(self.filename) #set the textbox to the file path        
             cf = config_handler.ConfigHandler()
-            cf.set_config_value(cf.RECENT_OUTPUT_DIR,self.filename2)
+            cf.set_config_value(cf.RECENT_OPEN_DIR,self.filename)
     
     def processText(self):
         if(self.filepath.get()):
@@ -77,7 +77,7 @@ class LexGUI:
         self.filepath = tk.StringVar()
         #load defaults
         cf = config_handler.ConfigHandler()
-        value = cf.get_config_value(cf.RECENT_OPEN_FILE)
+        value = cf.get_config_value(cf.RECENT_OPEN_DIR)
         self.filepath.set(value)
         s = ttk.Style()
         s.configure('TEntry', font = ('Courier', 24), padding = 4)
@@ -87,7 +87,7 @@ class LexGUI:
         self.path.grid(column = 0, row = 1, sticky = "w")
 
         #button 1
-        self.button1 = ttk.Button(self.labelFrame, text = "Browse A File", command=self.fileDialog)
+        self.button1 = ttk.Button(self.labelFrame, text = "Browse A File", command=self.dirDialog)
         self.button1.grid(column = 1, row = 1, sticky = "w")
 
         #label 2

@@ -9,9 +9,9 @@ class ConfigHandler:
     CONFIG_FILE = "lexicon.ini"
     RECENT = 'RECENTS'
     RECENT_OPEN_FILE = 'RecentOpenFilePath'
-    RECENT_OUTPUT_DIR = 'RecentOutputDirectory'
+    RECENT_OPEN_DIR = 'RecentOpenDirectory'
     RECENT_OPEN_FILE2 = 'RecentOpenFilePath2'
-    RECENT_OUTPUT_DIR2 = 'RecentOutputDirectory2'
+    RECENT_OPEN_DIR2 = 'RecentOpenDirectory2'
     
     
     RECENT_DATA = {}
@@ -21,9 +21,9 @@ class ConfigHandler:
     def prepare_default_config(self):
 
         self.RECENT_DATA[self.RECENT_OPEN_FILE] = os.path.join(os.getcwd(), self.CONFIG_FILE)
-        self.RECENT_DATA[self.RECENT_OUTPUT_DIR] = os.getcwd()
+        self.RECENT_DATA[self.RECENT_OPEN_DIR] = os.getcwd()
         self.RECENT_DATA[self.RECENT_OPEN_FILE2] = os.path.join(os.getcwd(), self.CONFIG_FILE)
-        self.RECENT_DATA[self.RECENT_OUTPUT_DIR2] = os.getcwd()
+        self.RECENT_DATA[self.RECENT_OPEN_DIR2] = os.getcwd()
 
 
     def read_config(self):
