@@ -10,7 +10,7 @@ from pymongo import MongoClient
 def insertDBOne(doc, db):
 	try:
 		
-		volumnName = 'google'
+		volumnName = 'lexico'
 		collection = db[volumnName]
 		objid = collection.insert_one(doc).inserted_id
 		return str(objid)
@@ -22,10 +22,9 @@ def insertDBOne(doc, db):
 
 
 def processSingleFile(dataFile, dataDir):
-	#dataDir = 'E:/FULLTEXT/GOOGLE/ARCHIVES/RAW'
-	#dataFile = 'Dict_Extract00000000.json'
+
 	pathJSON = os.path.join(dataDir, dataFile) 
-	pathWordList = 'E:/FULLTEXT/GOOGLE/LOG/Google_Word_List.txt'
+	pathWordList = 'E:/FULLTEXT/LEXICO/LOG/Lexico_Word_List.txt'
 
 
 
@@ -56,18 +55,18 @@ def processSingleFile(dataFile, dataDir):
 
 	fWordList= open(pathWordList, 'a', encoding = 'utf-8')
 
-	#loop through data
-	for itemList in jsonData:
-		for item in itemList:
-			#pprint(item)
-			headWord = item['word']
-			#print(headWord, '\n')
 
-			strStatus = insertDBOne(item, db)
+	#pprint(jsonData)
+	try:
+		headWord = jsonData['head-word']
+		if headWord:
+			strStatus = insertDBOne(jsonData, db)
 			message = 'Inserted ' + headWord + ' at ' + strStatus
 			logData.append(message)
 			print(message)
 			fWordList.write(headWord + '\n')
+	except Exception as e:
+		print('error encountered')
 
 	fWordList.close()
 
@@ -79,9 +78,6 @@ def processSingleFile(dataFile, dataDir):
 
 def processJSONDirectory(dataDir, logDir):
 	
-	#dataDir = 'E:/FULLTEXT/GOOGLE/RAW/DATA010000'
-
-	#logDir = 'E:/FULLTEXT/GOOGLE/LOG'
 
 	logPath = getDatedFilePath('JSON_To_Mongo_Log', logDir )
 
@@ -119,9 +115,8 @@ def processJSONDirectory(dataDir, logDir):
 		
 
 def prepareMongoWrite(inPath):
-	logDir = 'E:/FULLTEXT/GOOGLE/LOG'
+	logDir = 'E:/FULLTEXT/LEXICO/LOG'
 	processJSONDirectory(inPath, logDir)
 	openDir(logDir)
-
 
 
